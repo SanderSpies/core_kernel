@@ -99,19 +99,10 @@ module Pool = struct
    address-space sizes, so we choose [array_index_num_bits] differently.  We write
    both numbers as constants for performance reasons -- the compiler generates better
    code when they are constants rather than expressions. *)
-#ifdef JSC_ARCH_SIXTYFOUR
-
-let () = assert (Int.num_bits = 63)
-let array_index_num_bits = 30
-let masked_tuple_id_num_bits = 33
-
-#else
 
 let () = assert (Int.num_bits = 31 || Int.num_bits = 32)
 let array_index_num_bits = 22
 let masked_tuple_id_num_bits = Int.num_bits - array_index_num_bits
-
-#endif
 
 let%test _ = array_index_num_bits > 0
 let%test _ = masked_tuple_id_num_bits > 0
